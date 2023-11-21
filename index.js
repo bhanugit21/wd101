@@ -9,6 +9,13 @@
         return entries;
     }
     let userentries = retrieveentries();
+    const isAgeValid = (dob) => {
+        const currentDate = new Date();
+        const birthDate = new Date(dob);
+        const age = currentDate.getFullYear() - birthDate.getFullYear();
+    
+        return age >= 18 && age <= 55;
+    };
     const displayentries = () =>{
         const entries = retrieveentries();
         const tableentries = entries.map((entry) => {
@@ -40,6 +47,10 @@
         const password = document.getElementById("password").value;
         const dob = document.getElementById("dob").value;
         const accptterms = document.getElementById("acceptterms").checked;
+        if (!isAgeValid(dob)) {
+            alert("Sorry, you must be between 18 and 55 years old to register.");
+            return;
+        }
 
         const entry = {
             name,
@@ -54,3 +65,4 @@
     };
     userForm.addEventListener("submit", saveuserform);
     displayentries();
+
